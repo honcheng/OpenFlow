@@ -80,6 +80,23 @@ const static CGFloat kReflectionFraction = 0.85;
 	[scrollView.layer setSublayerTransform:sublayerTransform];
 	
 	[self setBounds:self.frame];
+	
+	imageTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,scrollView.frame.size.height-110,scrollView.frame.size.width, 30)];
+	[imageTitleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+	[imageTitleLabel setBackgroundColor:[UIColor clearColor]];
+	[imageTitleLabel setTextColor:[UIColor whiteColor]];
+	[imageTitleLabel setFont:[UIFont boldSystemFontOfSize:14]];
+	[imageTitleLabel setTextAlignment:UITextAlignmentCenter];
+	[imageTitleLabel setShadowColor:[UIColor colorWithWhite:0 alpha:0.3]];
+	[imageTitleLabel setShadowOffset:CGSizeMake(0,-1)];
+	[self addSubview:imageTitleLabel];
+	[imageTitleLabel release];
+	
+	if ([self.viewDelegate respondsToSelector:@selector(openFlowView:titleForIndex:)])
+	{
+		NSString *title = [self.viewDelegate openFlowView:self titleForIndex:0];
+		[imageTitleLabel setText:title];
+	}
 }
 
 - (AFItemView *)coverForIndex:(int)coverIndex {
@@ -215,6 +232,18 @@ const static CGFloat kReflectionFraction = 0.85;
 
 	[self layoutCovers:selectedCoverView.number fromCover:lowerBound toCover:upperBound];
 	[self centerOnSelectedCover:NO];
+	
+	
+	CGRect imageTitleLabelFrame = [imageTitleLabel frame];
+	if (newSize.size.width==480)
+	{
+		imageTitleLabelFrame.origin.y = newSize.size.height - 30;
+	}
+	else if (newSize.size.width==320)
+	{
+		imageTitleLabelFrame.origin.y = newSize.size.height - 110;
+	}
+	[imageTitleLabel setFrame:imageTitleLabelFrame];
 }
 
 - (void)setNumberOfImages:(int)newNumberOfImages {
@@ -310,6 +339,11 @@ const static CGFloat kReflectionFraction = 0.85;
 	if (beginningCover != selectedCoverView.number)
 		if ([self.viewDelegate respondsToSelector:@selector(openFlowView:selectionDidChange:)])
 			[self.viewDelegate openFlowView:self selectionDidChange:selectedCoverView.number];
+	if ([self.viewDelegate respondsToSelector:@selector(openFlowView:titleForIndex:)])
+	{
+		NSString *title = [self.viewDelegate openFlowView:self titleForIndex:selectedCoverView.number];
+		[imageTitleLabel setText:title];
+	}
 }
 
 - (void)centerOnSelectedCover:(BOOL)animated {

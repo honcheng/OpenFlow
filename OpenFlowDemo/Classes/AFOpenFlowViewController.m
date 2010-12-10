@@ -96,8 +96,14 @@
 	[getImageOperation release];
 }
 
-- (void)openFlowView:(AFOpenFlowView *)openFlowView selectionDidChange:(int)index {
+- (void)openFlowView:(AFOpenFlowView *)openFlowView selectionDidChange:(int)index 
+{
 	NSLog(@"Cover Flow selection did change to %d", index);
+}
+
+- (NSString*)openFlowView:(AFOpenFlowView *)openFlowView titleForIndex:(int)index 
+{
+	return [[self.imageInfoArray objectAtIndex:index] objectForKey:@"title"];
 }
 
 @end

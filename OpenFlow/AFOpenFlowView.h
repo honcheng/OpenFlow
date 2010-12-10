@@ -57,6 +57,8 @@
 	Boolean isDoubleTap;
 	Boolean isDraggingACover;
 	CGFloat startPosition;
+	
+	UILabel *imageTitleLabel;
 }
 
 @property (nonatomic, assign) id <AFOpenFlowViewDataSource> dataSource;
@@ -73,6 +75,7 @@
 @protocol AFOpenFlowViewDelegate <NSObject>
 @optional
 - (void)openFlowView:(AFOpenFlowView *)openFlowView selectionDidChange:(int)index;
+- (NSString*)openFlowView:(AFOpenFlowView *)openFlowView titleForIndex:(int)index;
 @end
 
 @protocol AFOpenFlowViewDataSource <NSObject>
