@@ -81,22 +81,18 @@ const static CGFloat kReflectionFraction = 0.85;
 	
 	[self setBounds:self.frame];
 	
-	imageTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,scrollView.frame.size.height-110,scrollView.frame.size.width, 30)];
-	[imageTitleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-	[imageTitleLabel setBackgroundColor:[UIColor clearColor]];
-	[imageTitleLabel setTextColor:[UIColor whiteColor]];
-	[imageTitleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-	[imageTitleLabel setTextAlignment:UITextAlignmentCenter];
-	[imageTitleLabel setShadowColor:[UIColor colorWithWhite:0 alpha:0.3]];
-	[imageTitleLabel setShadowOffset:CGSizeMake(0,-1)];
-	[self addSubview:imageTitleLabel];
-	[imageTitleLabel release];
+	imageCaptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,scrollView.frame.size.height-110,scrollView.frame.size.width, 30)];
+	[imageCaptionLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+	[imageCaptionLabel setBackgroundColor:[UIColor clearColor]];
+	[imageCaptionLabel setTextColor:[UIColor whiteColor]];
+	[imageCaptionLabel setFont:[UIFont boldSystemFontOfSize:14]];
+	[imageCaptionLabel setTextAlignment:UITextAlignmentCenter];
+	[imageCaptionLabel setShadowColor:[UIColor colorWithWhite:0 alpha:0.3]];
+	[imageCaptionLabel setShadowOffset:CGSizeMake(0,-1)];
+	[self addSubview:imageCaptionLabel];
+	[imageCaptionLabel release];
 	
-	if ([self.viewDelegate respondsToSelector:@selector(openFlowView:titleForIndex:)])
-	{
-		NSString *title = [self.viewDelegate openFlowView:self titleForIndex:0];
-		[imageTitleLabel setText:title];
-	}
+	
 }
 
 - (AFItemView *)coverForIndex:(int)coverIndex {
@@ -234,16 +230,16 @@ const static CGFloat kReflectionFraction = 0.85;
 	[self centerOnSelectedCover:NO];
 	
 	
-	CGRect imageTitleLabelFrame = [imageTitleLabel frame];
+	CGRect imageCaptionLabelFrame = [imageCaptionLabel frame];
 	if (newSize.size.width==480)
 	{
-		imageTitleLabelFrame.origin.y = newSize.size.height - 30;
+		imageCaptionLabelFrame.origin.y = newSize.size.height - 30;
 	}
 	else if (newSize.size.width==320)
 	{
-		imageTitleLabelFrame.origin.y = newSize.size.height - 110;
+		imageCaptionLabelFrame.origin.y = newSize.size.height - 110;
 	}
-	[imageTitleLabel setFrame:imageTitleLabelFrame];
+	[imageCaptionLabel setFrame:imageCaptionLabelFrame];
 }
 
 - (void)setNumberOfImages:(int)newNumberOfImages {
@@ -267,7 +263,7 @@ const static CGFloat kReflectionFraction = 0.85;
 	defaultImage = [[newDefaultImage addImageReflection:kReflectionFraction] retain];
 }
 
-- (void)setImage:(UIImage *)image forIndex:(int)index {
+- (void)setImage:(UIImage *)image title:(NSString*)title forIndex:(int)index {
 	// Create a reflection for this image.
 	UIImage *imageWithReflection = [image addImageReflection:kReflectionFraction];
 	NSNumber *coverNumber = [NSNumber numberWithInt:index];
@@ -278,6 +274,7 @@ const static CGFloat kReflectionFraction = 0.85;
 	AFItemView *aCover = (AFItemView *)[onscreenCovers objectForKey:[NSNumber numberWithInt:index]];
 	if (aCover) {
 		[aCover setImage:imageWithReflection originalImageHeight:image.size.height reflectionFraction:kReflectionFraction];
+		[aCover setTitle:title];
 		[self layoutCover:aCover selectedCover:selectedCoverView.number animated:NO];
 	}
 }
@@ -339,11 +336,7 @@ const static CGFloat kReflectionFraction = 0.85;
 	if (beginningCover != selectedCoverView.number)
 		if ([self.viewDelegate respondsToSelector:@selector(openFlowView:selectionDidChange:)])
 			[self.viewDelegate openFlowView:self selectionDidChange:selectedCoverView.number];
-	if ([self.viewDelegate respondsToSelector:@selector(openFlowView:titleForIndex:)])
-	{
-		NSString *title = [self.viewDelegate openFlowView:self titleForIndex:selectedCoverView.number];
-		[imageTitleLabel setText:title];
-	}
+	
 }
 
 - (void)centerOnSelectedCover:(BOOL)animated {
@@ -354,6 +347,12 @@ const static CGFloat kReflectionFraction = 0.85;
 - (void)setSelectedCover:(int)newSelectedCover {
 	if (selectedCoverView && (newSelectedCover == selectedCoverView.number))
 		return;
+	
+	if ([self.viewDelegate respondsToSelector:@selector(openFlowView:titleForIndex:)])
+	{
+		NSString *caption = [self.viewDelegate openFlowView:self titleForIndex:newSelectedCover];
+		[imageCaptionLabel setText:caption];
+	}
 	
 	AFItemView *cover;
 	int newLowerBound = MAX(0, newSelectedCover - COVER_BUFFER);

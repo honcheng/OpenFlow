@@ -40,6 +40,8 @@
 
 - (void)awakeFromNib {
 	
+	[self.view setBackgroundColor:[UIColor blackColor]];
+	
 	loadImagesOperationQueue = [[NSOperationQueue alloc] init];
 	
 	NSString *jsonFilePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"sample.json"];
@@ -51,6 +53,7 @@
 	{
 		self.imageInfoArray = [response objectForKey:@"images"];
 	}
+	
 	[(AFOpenFlowView *)self.view setNumberOfImages:[self.imageInfoArray count]];
 }
 
@@ -58,7 +61,7 @@
 	
 	UIAlertView *alertView = [[UIAlertView alloc] init];
 	[alertView setTitle:@"About OpenFlow"];
-	[alertView setMessage:@"The original OpenFlow code was from https://github.com/thefaj/OpenFlow. I just modified it to remove Flickr"];
+	[alertView setMessage:@"This is a fork of OpenFlow, modified to include title and caption. The original OpenFlow code was from https://github.com/thefaj/OpenFlow."];
 	[alertView addButtonWithTitle:@"Dismiss"];
 	[alertView show];
 	[alertView release];
@@ -70,10 +73,12 @@
 	
 	// Only resize our images if they are coming from Flickr (samples are already scaled).
 	// Resize the image on the main thread (UIKit is not thread safe).
-	//if (interestingnessRequest)
-	//	loadedImage = [loadedImage cropCenterAndScaleImageToSize:CGSizeMake(225, 225)];
+	if (self.imageInfoArray)
+		loadedImage = [loadedImage cropCenterAndScaleImageToSize:CGSizeMake(225, 225)];
 
-	[(AFOpenFlowView *)self.view setImage:loadedImage forIndex:[imageIndex intValue]];
+	NSString *imgTitle = [[self.imageInfoArray objectAtIndex:[imageIndex intValue]] objectForKey:@"title"];
+	
+	[(AFOpenFlowView *)self.view setImage:loadedImage title:imgTitle forIndex:[imageIndex intValue]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -103,7 +108,7 @@
 
 - (NSString*)openFlowView:(AFOpenFlowView *)openFlowView titleForIndex:(int)index 
 {
-	return [[self.imageInfoArray objectAtIndex:index] objectForKey:@"title"];
+	return [[self.imageInfoArray objectAtIndex:index] objectForKey:@"caption"];
 }
 
 @end

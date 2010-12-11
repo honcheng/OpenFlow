@@ -2,27 +2,33 @@
     "images": [
         {
             "img_path": "http://t2.gstatic.com/images?q=tbn:ANd9GcS3LZ9A34sBnxhc01369ogbvO4-F5qF32mo8ImKdH9jWL0M5i-W",
-            "title": "Google" 
+            "title": "Google",
+            "caption": "this is a caption for the 1st image" 
         } ,
         {
-            "img_path": "http://t1.gstatic.com/images?q=tbn:ANd9GcSgoMa1R4zYRw3Yd9YdcFNpw0oSdfeOu25FVRyVYcOOKW621ZQw",
-            "title": "Adword Machine" 
+            "img_path": "http: //t1.gstatic.com/images?q=tbn: ANd9GcSgoMa1R4zYRw3Yd9YdcFNpw0oSdfeOu25FVRyVYcOOKW621ZQw",
+            "title": "Adword Machine" ,
+            "caption": "this is a caption for the 2nd image" 
         } ,
         {
-            "img_path": "http://t1.gstatic.com/images?q=tbn:ANd9GcQoLJCPvfJSjKjpxTmozVqMBdsycDvZt5IRL5PupmW5T2ry47f3",
-            "title": "Google Earth" 
+            "img_path": "http: //t1.gstatic.com/images?q=tbn: ANd9GcQoLJCPvfJSjKjpxTmozVqMBdsycDvZt5IRL5PupmW5T2ry47f3",
+            "title": "Google Earth" ,
+            "caption": "this is a caption for the 3rd image" 
         } ,
         {
-            "img_path": "http://t3.gstatic.com/images?q=tbn:ANd9GcR37rv6dhY8CK3kIpy7Tqldk5zcN8mzmmq64VRTDnNfe69eGimQ",
-            "title": "FSM" 
+            "img_path": "http: //t3.gstatic.com/images?q=tbn: ANd9GcR37rv6dhY8CK3kIpy7Tqldk5zcN8mzmmq64VRTDnNfe69eGimQ",
+            "title": "FSM" ,
+            "caption": "this is a caption for the 4th image" 
         } ,
         {
-            "img_path": "http://t3.gstatic.com/images?q=tbn:ANd9GcQFXYUOkDRYyi3lxi4nGUticMAp2mg-i_EHPjr6RoF_N-XeCiOm",
-            "title": "Google Earth 2" 
+            "img_path": "http: //t3.gstatic.com/images?q=tbn: ANd9GcQFXYUOkDRYyi3lxi4nGUticMAp2mg-i_EHPjr6RoF_N-XeCiOm",
+            "title": "Google Earth 2",
+            "caption": "this is a caption for the 5th image" 
         } ,
         {
-            "img_path": "http://t2.gstatic.com/images?q=tbn:ANd9GcRkbv2m1I0XgwdTTxJrgvTgwztfkD_YovFdBzAHRVxPoDbhW3coVA",
-            "title": "Chrome icon" 
+            "img_path": "http: //t2.gstatic.com/images?q=tbn: ANd9GcRkbv2m1I0XgwdTTxJrgvTgwztfkD_YovFdBzAHRVxPoDbhW3coVA",
+            "title": "Chrome icon" ,
+            "caption": "this is a caption for the 6th image" 
         } 
     ]
 }

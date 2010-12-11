@@ -41,9 +41,31 @@
 		imageView = [[UIImageView alloc] initWithFrame:frame];
 		imageView.opaque = YES;
 		[self addSubview:imageView];
+		
+		titleBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-40, frame.size.width, 40)];
+		[imageView addSubview:titleBackgroundView];
+		[titleBackgroundView setBackgroundColor:[UIColor blackColor]];
+		[titleBackgroundView setAlpha:0.5];
+		[titleBackgroundView release];
+		
+		titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		[titleLabel setBackgroundColor:[UIColor clearColor]];
+		[imageView addSubview:titleLabel];
+		[titleLabel release];
+		[titleLabel setTextColor:[UIColor whiteColor]];
+		[titleLabel setFont:[UIFont boldSystemFontOfSize:13]];
 	}
 	
 	return self;
+}
+
+- (void)setTitle:(NSString*)title
+{
+	[titleBackgroundView setHidden:(title==nil)];
+	if (title)
+	{
+		[titleLabel setText:title];
+	}
 }
 
 - (void)setImage:(UIImage *)newImage originalImageHeight:(CGFloat)imageHeight reflectionFraction:(CGFloat)reflectionFraction {
@@ -51,6 +73,13 @@
 	verticalPosition = imageHeight * reflectionFraction / 2;
 	originalImageHeight = imageHeight;
 	self.frame = CGRectMake(0, 0, newImage.size.width, newImage.size.height);
+	
+	CGRect titleBackgroundViewFrame = [titleBackgroundView frame];
+	titleBackgroundViewFrame.origin.y = imageHeight-titleBackgroundViewFrame.size.height;
+	titleBackgroundViewFrame.size.width = newImage.size.width;
+	[titleBackgroundView setFrame:titleBackgroundViewFrame];
+	
+	[titleLabel setFrame:CGRectMake(10,titleBackgroundViewFrame.origin.y,titleBackgroundViewFrame.size.width-20,titleBackgroundViewFrame.size.height)];
 }
 
 - (void)setNumber:(int)newNumber {

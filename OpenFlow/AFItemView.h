@@ -31,6 +31,8 @@
 	CGFloat			horizontalPosition;
 	CGFloat			verticalPosition;
 	CGFloat			originalImageHeight;
+	UILabel			*titleLabel;
+	UILabel			*titleBackgroundView;
 }
 
 @property int number;
@@ -40,5 +42,6 @@
 
 - (void)setImage:(UIImage *)newImage originalImageHeight:(CGFloat)imageHeight reflectionFraction:(CGFloat)reflectionFraction;
 - (CGSize)calculateNewSize:(CGSize)originalImageSize boundingBox:(CGSize)boundingBox;
+- (void)setTitle:(NSString*)title;
 
 @end

@@ -58,7 +58,7 @@
 	Boolean isDraggingACover;
 	CGFloat startPosition;
 	
-	UILabel *imageTitleLabel;
+	UILabel *imageCaptionLabel;
 }
 
 @property (nonatomic, assign) id <AFOpenFlowViewDataSource> dataSource;
@@ -68,7 +68,7 @@
 
 - (void)setSelectedCover:(int)newSelectedCover;
 - (void)centerOnSelectedCover:(BOOL)animated;
-- (void)setImage:(UIImage *)image forIndex:(int)index;
+- (void)setImage:(UIImage *)image title:(NSString*)title forIndex:(int)index;
 
 @end
 
